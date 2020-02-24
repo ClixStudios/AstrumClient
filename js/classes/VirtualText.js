@@ -3,7 +3,16 @@ class VirtualText extends VirtualElement {
         super(elementId, xPosition, yPosition);
         this.text = text;
         this.textAlign = textAlign;
-        this.textColour = textColour;
+
+
+        // Old
+        // this.textColour = textColour;
+
+        // New
+        this.textColour = 'rgba(' + textColour.red + ', ' + textColour.green + ', ' + textColour.blue + ', ' + textColour.alpha + ')'
+
+        console.log(this.textColour)
+
         this.fillFont = size + 'px ' + textFont
     }
 

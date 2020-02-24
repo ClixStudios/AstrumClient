@@ -9,6 +9,7 @@ function clearHUDElements() {
     controllers = [];
     texts = [];
     buttons = [];
+    images = [];
     VirtualElements = [];
     c.clearRect(0, 0, innerWidth, innerHeight);
 }
@@ -40,6 +41,10 @@ function animate() {
     });
 
     buttons.forEach(function (ele) {
+        ele.draw();
+    });
+
+    images.forEach(function (ele) {
         ele.draw();
     });
 

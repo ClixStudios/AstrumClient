@@ -17,7 +17,7 @@ if (true) {
     })
 
     socket.on('ForceRefresh', (data) => {
-        VirtualElements.push(new VirtualText('99', width * 0.5, height * 0.5, 'Please refresh your device.', 'white', 'center', 'Arial', '50'))
+        VirtualElements.push(new VirtualText('99', width * 0.5, height * 0.5, 'Refreshing device...', { red: 255, blue: 255, blue: 255, alpha: 1 }, 'center', 'Arial', '50'))
         location.reload();
     });
 
@@ -52,6 +52,67 @@ if (true) {
                     break;
             }
         });
+    });
+
+
+    function _arrayBufferToBase64(buffer) {
+        var binary = '';
+        var bytes = new Uint8ClampedArray(buffer);
+        var len = bytes.byteLength;
+        for (var i = 0; i < len; i++) {
+            binary += String.fromCharCode(bytes[i]);
+        }
+        return window.btoa(binary);
+    }
+
+    function buf2hex(buffer) { // buffer is an ArrayBuffer
+        return Array.prototype.map.call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2)).join('');
+    }
+
+    socket.on('image', data => {
+
+        var arrayBufferView = new Uint8ClampedArray(data);
+
+
+
+
+        console.log(_arrayBufferToBase64(data));
+
+
+        // let base64String = btoa(String.fromCharCode(arrayBufferView));
+
+        // console.log(base64String);
+
+        var blob = new Blob([arrayBufferView], { type: "image/png" });
+
+        createImageBitmap(blob).then(image => {
+            VirtualElements.push(new VirtualImage(56, 2, 2, image));
+        });
+
+
+
+        // let image = new Image();
+
+        // console.log(data);
+
+        // console.log(new Blob([new Uint8Array(data, 8, data.byteLength).buffer], { type: "image/png" }));
+
+        // var myReader = new FileReader();
+        // myReader.onload = function (event) {
+        //     console.log(JSON.stringify(myReader.result));
+        // };
+
+        // myReader.readAsText(blob);
+
+        // image.onload = function(){
+        //     // c.drawImage(img, 0, 0)
+        //     image.src = URL.createObjectURL(blob)
+        // }
+
+
+        // console.log(blob);
+        // createImageBitmap("data:image/png;base64," + blob).then(image => {
+        // })
     });
 
     socket.on('Vibrate', data => {

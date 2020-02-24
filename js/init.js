@@ -2,7 +2,7 @@
 // window.addEventListener("touchmove", preventMotion, false);
 
 var timeDeltas = [];
-var url = window.location.hostname + ':80/client'
+var url = window.location.hostname + ':4321/client'
 
 var socket = io(url);
 
@@ -12,6 +12,7 @@ var c = canvas.getContext('2d');
 var controllers = [];
 var texts = [];
 var buttons = [];
+var images = [];
 var VirtualElements = [];
 
 var touches = [];
