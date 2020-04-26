@@ -12,7 +12,6 @@ class VirtualButton extends VirtualElement {
 
     press() {
         this.pressed = true;
-        alert('pressed')
         socket.emit('VirtualButtonUpdate', {
             'id': this.elementId,
             "event": "press"
