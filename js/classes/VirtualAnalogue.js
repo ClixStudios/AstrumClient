@@ -46,7 +46,7 @@ class VirtualAnalogue extends VirtualElement {
     }
 
     emit(elementId, xRelPointer, yRelPointer) {
-
+        alert('emitted')
         // Socket.io
         socket.emit('VirtualControllerUpdate', {
             'id': elementId,
