@@ -22,6 +22,5 @@ class VirtualElement {
             this.xPosition = this.xPositionInitial;
             this.yPosition = this.yPositionInitial;
         }
-        alert(this.xPosition + " : " + this.yPosition)
     }
 };
