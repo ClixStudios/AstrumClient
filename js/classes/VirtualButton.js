@@ -1,9 +1,13 @@
 class VirtualButton extends VirtualElement {
-    constructor(elementId, xPosition, yPosition, radius, text) {
-        super(elementId, xPosition, yPosition);
+
+    constructor(elementId, xPosition, yPosition, hidden, relative, radius, text) {
+        super(elementId, xPosition, yPosition, hidden, relative);
+
         this.radius = radius;
         this.text = text;
         this.pressed = false;
+
+        this.calculatePositions();
     }
 
     press() {
@@ -26,24 +30,27 @@ class VirtualButton extends VirtualElement {
     }
 
     draw() {
-        // Draw circle
-        c.beginPath();
-        c.arc(this.xPosition, this.yPosition, this.radius, 0, 2 * Math.PI);
-        c.strokeStyle = "#b0b0b0";
-        c.lineWidth = 30;
-        c.stroke();
+        if (!this.hidden) {
+            // Draw circle
+            c.beginPath();
+            c.arc(this.xPosition, this.yPosition, this.radius, 0, 2 * Math.PI);
+            c.strokeStyle = "#b0b0b0";
+            c.lineWidth = 30;
+            c.stroke();
 
-        if (!this.pressed) {
-            c.fillStyle = "#616161";
-        } else {
-            c.fillStyle = "#cccccc";
+            if (!this.pressed) {
+                c.fillStyle = "#616161";
+            } else {
+                c.fillStyle = "#cccccc";
+            }
+
+            c.fill();
+
+            c.font = '40px Arial';
+            c.fillStyle = 'white';
+            c.textAlign = 'center';
+            c.fillText(this.text, this.xPosition, this.yPosition);
         }
-
-        c.fill();
-
-        c.font = '40px Arial';
-        c.fillStyle = 'white';
-        c.textAlign = 'center';
-        c.fillText(this.text, this.xPosition, this.yPosition);
     }
-}
+
+};

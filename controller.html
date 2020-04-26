@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
     <!-- TODO:
             - Make persistant id survive inside cookie data
@@ -9,6 +10,7 @@
     <meta name="viewport" content="width=970, height=1505, user-scalable=no">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="main.css">
+    <title>Project Astrum - Mobile Client</title>
     <meta name="theme-color" content="#444444">
 </head>
 
@@ -24,21 +26,24 @@
         - Type: Sourcecode Framework
         - Availability: https://socket.io/
     -->
+
     <script src="js/socketio/socket.io.dev.js"></script>
+
+
+    <!-- VirtualElement (and subclasses) -->
+    <script src="js/classes/VirtualElement.js"></script>
+    <script src="js/classes/VirtualAnalogue.js"></script>
+    <script src="js/classes/VirtualText.js"></script>
+    <script src="js/classes/VirtualButton.js"></script>
+    <script src="js/classes/VirtualImage.js"></script>
+
 
     <!-- Function For init and utils -->
     <script src="js/functions.js"></script>
-    
+
     <!-- Initialisation, Canvas, Window/Document Size -->
     <script src="js/init.js"></script>
-    
-    <!-- Virtual Elements (and subclasses) -->
-    <script src="js/classes/VirtualElement.js"></script>
-    <script src="js/classes/VirtualText.js"></script>
-    <script src="js/classes/VirtualButton.js"></script>
-    <script src="js/classes/VirtualController.js"></script>
-    <script src="js/classes/VirtualImage.js"></script>
-    
+
     <!-- Touch Event Handlers -->
     <script src="js/touchEvents.js"></script>
     <script src="js/main.js"></script>

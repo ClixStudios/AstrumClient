@@ -1,8 +1,8 @@
-// Virtual Controller Class
-class VirtualController extends VirtualElement {
+class VirtualAnalogue extends VirtualElement {
 
-    constructor(elementId, xPosition, yPosition, radius, pointerRadius, vertical, horizonal) {
-        super(elementId, xPosition, yPosition);
+    constructor(elementId, xPosition, yPosition, hidden, relative, radius, pointerRadius, vertical, horizonal) {
+        super(elementId, xPosition, yPosition, hidden, relative);
+
         this.radius = radius;
         this.pointerRadius = pointerRadius;
         this.vertical = vertical;
@@ -13,36 +13,40 @@ class VirtualController extends VirtualElement {
         this.yRelPointer = (this.yPointer - this.yPosition) / this.radius;
         this.isTouched = false;
         this.socketEmitter = null;
+
+        this.calculatePositions();
+
+        this.resetPointerData();
+
     }
 
 
-    press = () => {
+    press() {
         this.startIntervalEmitter();
     }
 
-
-
-    startIntervalEmitter = () => {
+    startIntervalEmitter() {
         this.socketEmitter = setInterval(() => {
             this.emitCurrentPointer();
         }, 30);
     }
 
-    stopIntervalEmitter = () => {
+    stopIntervalEmitter() {
         clearInterval(this.socketEmitter);
     }
 
-    stopEmitter = () => {
+    stopEmitter() {
         this.stopIntervalEmitter();
         clearInterval(this.socketEmitter);
         this.emit(this.elementId, 0, 0);
     }
 
-    emitCurrentPointer = () => {
+    emitCurrentPointer() {
         this.emit(this.elementId, this.xRelPointer, this.yRelPointer);
     }
 
-    emit = (elementId, xRelPointer, yRelPointer) => {
+    emit(elementId, xRelPointer, yRelPointer) {
+
         // Socket.io
         socket.emit('VirtualControllerUpdate', {
             'id': elementId,
@@ -51,12 +55,14 @@ class VirtualController extends VirtualElement {
         });
     }
 
-    draw = function () {
-        this.drawController();
-        this.drawPointer();
+    draw() {
+        if (!this.hidden) {
+            this.drawController();
+            this.drawPointer();
+        }
     }
 
-    drawController = function () {
+    drawController() {
         c.beginPath();
         c.arc(this.xPosition, this.yPosition, this.radius, 0, Math.PI * 2, false)
         c.strokeStyle = 'rgba(255,255,255,0.75)';
@@ -65,7 +71,7 @@ class VirtualController extends VirtualElement {
         c.stroke();
     }
 
-    drawPointer = function () {
+    drawPointer() {
         c.beginPath();
         c.arc(this.xPointer, this.yPointer, this.pointerRadius, 0, Math.PI * 2, false)
         c.strokeStyle = 'rgba(25,25,25,1)';
@@ -74,7 +80,7 @@ class VirtualController extends VirtualElement {
         c.stroke();
     }
 
-    updatePointerData = function (xTouch, yTouch) {
+    updatePointerData(xTouch, yTouch) {
 
         // If touch is inside a controller
         if (Math.pow(xTouch - this.xPosition, 2) + Math.pow(yTouch - this.yPosition, 2) < Math.pow(this.radius, 2)) {
@@ -91,15 +97,15 @@ class VirtualController extends VirtualElement {
         this.yRelPointer = (this.yPointer - this.yPosition) / this.radius;
         // alert(this.xRelPointer);
 
-        // FIXME: Old latency testing.
+        // Old latency testing.
         // var date = new Date();
         // socket.emit('Time', date);
 
         this.drawPointer();
     }
 
-    resetPointerData = function () {
+    resetPointerData() {
         this.updatePointerData(this.xPosition, this.yPosition);
     }
 
-}
+};

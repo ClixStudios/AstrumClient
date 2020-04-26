@@ -26,7 +26,7 @@ var voices = [];
 function init() {
     canvas.width = width;
     canvas.height = height;
-    // alert(width + ', ' + height)
+    // alert('Width: ' + width + ', Height: ' + height);
 }
 
 init();

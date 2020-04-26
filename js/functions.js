@@ -18,6 +18,11 @@ function clearHUDElements() {
 window.addEventListener('resize', function () {
     width = window.innerWidth;
     height = window.innerHeight;
+
+    VirtualElements.forEach(element => {
+        element.calculatePositions();
+    });
+
     init();
 });
 
